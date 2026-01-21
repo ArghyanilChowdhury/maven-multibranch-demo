@@ -1,15 +1,16 @@
 pipeline {
   agent any
 
-  tools {
-    // These tool names must match Jenkins: Manage Jenkins → Tools
-    jdk 'JDK17'
-    maven 'Maven_3.9.11'
-  }
+  options { timestamps() }
 
   stages {
     stage('Checkout') {
-      steps { checkout scm }
+      steps {
+        checkout scm
+        bat 'git --version'
+        bat 'java -version'
+        bat 'mvn -v'
+      }
     }
 
     stage('Build') {
